@@ -1,15 +1,14 @@
-export default function guardrail(mathFunction) {
-  const queue = [];
-  let value;
+import { uploadPhoto, createUser } from './utils';
+
+export default async function asyncUploadUser() {
+  let res = {};
 
   try {
-    value = mathFunction();
+    const photo = await uploadPhoto();
+    const user = await createUser();
+    res = { photo, user };
   } catch (err) {
-    value = err.toString();
+    res = { photo: null, user: null };
   }
-
-  queue.push(value);
-  queue.push('Guardrail was processed');
-
-  return queue;
+  return res;
 }
